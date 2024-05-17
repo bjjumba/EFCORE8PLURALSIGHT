@@ -5,10 +5,25 @@ using PublisherDomain;
 using var context = new PublisherContext();
 context.Database.EnsureCreated();
 
-// AddAuthor();
-AddAuthorWithBooks();
-// GetAuthors();
-GetAuthorsWithBooks();
+QueryFilter();
+void QueryFilter()
+{
+    /*
+     Common Filters
+     1.Find -> uses Index and dbset method
+     2.Contains -> Resembles Like in SQL
+     3.Skip and Take methods for pagination
+     */
+    var author = 
+        context.Authors.Where(a => EF.Functions.Like(a.FirstName,"J%")).ToList();
+        // context.Authors.Where(a => a.FirstName == "Julie").ToList();
+    Console.WriteLine(author.Count);
+}
+
+// // AddAuthor();
+// AddAuthorWithBooks();
+// // GetAuthors();
+// GetAuthorsWithBooks();
 
 
 void AddAuthorWithBooks()
